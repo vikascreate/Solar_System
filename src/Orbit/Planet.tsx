@@ -5,7 +5,7 @@ import {
    useRef
    //, useState 
   } from 'react';
-import { useFrame } from '@react-three/fiber';
+import { useFrame, useThree} from '@react-three/fiber';
 import Circle from './Circle';
 import { Vector3,
  // Euler 
@@ -28,6 +28,7 @@ function Planet({radiusX,radiusY,circleRad,color,positionPlanet,positionOrbit,sp
 //  rotation
 }:PlanetProps) {
     const PlanetRef=useRef<Line2>(null)
+    const {camera}=useThree()
    // const [coords,setcoords] =useState<THREE.Vector3>(positionPlanet)
     // useEffect(()=>{
     //   if(PlanetRef.current)
@@ -44,22 +45,38 @@ function Planet({radiusX,radiusY,circleRad,color,positionPlanet,positionOrbit,sp
           const scaleFactor =  distance*0.0005;// Adjust the denominator to control the size
 
       PlanetRef.current.scale.set(scaleFactor, scaleFactor, scaleFactor);
+   //   const maxDistance=10;
+    //  const opacity = 1 - Math.min(distance / maxDistance, 1);
+      PlanetRef.current.material.setValues({opacity:0})
            PlanetRef.current.lookAt(camera.position);
            PlanetRef.current.position.set(x,y,positionOrbit.z)
+         //  PlanetRef.current.material.opacity
        //    setcoords(PlanetRef.current.position)
          // PlanetRef.current.rotateY(camera.rotation.y);
          // PlanetRef.current.rotateZ(camera.rotation.z);
         }
       })
+      function SeePlanet(){
+        console.log('clicked on Planet')
+        console.log(camera)
+        if(PlanetRef.current)
+        {
+          camera.position.lerp(PlanetRef.current.position,1)
+          camera.lookAt(PlanetRef.current?.position)
+        }
+      console.log(camera)
+      }
   return (
     <>
           <Circle  radiusX={circleRad} radiusY={circleRad} segments={128} color={color} position={positionPlanet} 
        //   rotation={new Eu}
-           reft={PlanetRef}/>
+           reft={PlanetRef} onClicked={()=>console.log('clicked')}/>
            {/* <Orbit position={positionPlanet} color={color}/> */}
           <Circle radiusX={radiusX} radiusY={radiusX} segments={128} color={color} position={positionOrbit} 
           // rotation={rotation}
-           reft={null}/>
+           reft={null}
+           onClicked={()=>SeePlanet()}
+           />
            {/* <Html position={coords}>
              <div style={{ position: 'absolute', color: 'white',top:2,left:0}}>
            <h4>{planetName}</h4>

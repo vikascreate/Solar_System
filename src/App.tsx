@@ -21,9 +21,9 @@ function App() {
       <Speed/>
       <button onClick={()=>setWorldSpeed(0.000000019533)} style={{backgroundColor:'#00FF48',zIndex:'5'}}>Live</button>
         <Canvas camera={{ position: [-200, -1800, -1800] ,near:1,far:100000000,rotation:new Euler(300,-700,200)}} style={{display:'flex',width:'100vw',height:'100vh',position:'fixed',zIndex:'1'}} >
-          <pointLight position={[0,0,0]} intensity={1000} color={'yellow'}/>
+          <pointLight position={[0,0,0]} intensity={30} color={'yellow'}/>
           <Sun/>
-          <Stars radius={1000000} depth={5000} factor={25} fade saturation={100}/>
+          <Stars radius={1000000} depth={5000} factor={25} saturation={-20} fade/>
           <OrbitControls enablePan={false} maxDistance={1000000}  />
           {/* //Mercury /Orbit*/}
           <Planet radiusX={544.5} radiusY={544.5} circleRad={30} color={'purple'} positionOrbit={new Vector3(0,0,-0.001)} positionPlanet={new Vector3(0,544.5,-0.001)} planetName='Mercury'
@@ -49,7 +49,11 @@ function App() {
           {/* Neptune /orbit */}
           <Planet radiusX={44700} radiusY={44700} color={'#E8591B'} positionOrbit={new Vector3(13,-8,-12)} positionPlanet={new Vector3(13,44692,-12)} circleRad={30} speed={(1/164.79)*worldSpeed} planetName='Neptune'/>
           <EffectComposer>
-          <Bloom intensity={14} kernelSize={2} luminanceThreshold={0.9} luminanceSmoothing={0.075}/>
+          <Bloom intensity={3} kernelSize={5} luminanceThreshold={0.9} luminanceSmoothing={0.08}/>
+          <Bloom intensity={2} kernelSize={4} luminanceThreshold={0.9} luminanceSmoothing={0.08}/>
+          <Bloom intensity={2} kernelSize={3} luminanceThreshold={0.9} luminanceSmoothing={0.08}/>
+          <Bloom intensity={2} kernelSize={2} luminanceThreshold={0.9} luminanceSmoothing={0.08}/>
+          <Bloom intensity={3} kernelSize={1} luminanceThreshold={0.9} luminanceSmoothing={0.08}/>
           </EffectComposer>
         </Canvas>
         </div>
