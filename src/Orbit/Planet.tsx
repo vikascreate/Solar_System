@@ -3,7 +3,7 @@
 import { 
   //useEffect,
    useRef
-   //, useState 
+   , useState 
   } from 'react';
 import { useFrame, useThree} from '@react-three/fiber';
 import Circle from './Circle';
@@ -28,6 +28,7 @@ function Planet({radiusX,radiusY,circleRad,color,positionPlanet,positionOrbit,sp
 //  rotation
 }:PlanetProps) {
     const PlanetRef=useRef<Line2>(null)
+    const [cameralook,setCameraLook]=useState<number>(0)
     const {camera}=useThree()
    // const [coords,setcoords] =useState<THREE.Vector3>(positionPlanet)
     // useEffect(()=>{
@@ -47,9 +48,14 @@ function Planet({radiusX,radiusY,circleRad,color,positionPlanet,positionOrbit,sp
       PlanetRef.current.scale.set(scaleFactor, scaleFactor, scaleFactor);
    //   const maxDistance=10;
     //  const opacity = 1 - Math.min(distance / maxDistance, 1);
-      PlanetRef.current.material.setValues({opacity:0})
+    //  PlanetRef.current.material.setValues({opacity:0})
            PlanetRef.current.lookAt(camera.position);
            PlanetRef.current.position.set(x,y,positionOrbit.z)
+           console.log(PlanetRef.current.position)
+           if(cameralook==1){
+            
+            camera.lookAt(PlanetRef.current.position)
+           }
          //  PlanetRef.current.material.opacity
        //    setcoords(PlanetRef.current.position)
          // PlanetRef.current.rotateY(camera.rotation.y);
@@ -60,9 +66,8 @@ function Planet({radiusX,radiusY,circleRad,color,positionPlanet,positionOrbit,sp
         console.log('clicked on Planet')
         console.log(camera)
         if(PlanetRef.current)
-        {
-          camera.position.lerp(PlanetRef.current.position,1)
-          camera.lookAt(PlanetRef.current?.position)
+        { camera.position.lerp(new Vector3(PlanetRef.current.position.x+90,PlanetRef.current.position.y+80,PlanetRef.current.position.z+300),1)
+          setCameraLook(1)
         }
       console.log(camera)
       }

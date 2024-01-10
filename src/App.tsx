@@ -13,7 +13,7 @@ import Planet from './Orbit/Planet'
 import Speed from './Component/Speed'
 import Sun from './Orbit/Sun'
 function App() {
-  const [worldSpeed,setWorldSpeed]=useState(1)
+  const [worldSpeed,setWorldSpeed]=useState(0.3)
 
   return (
     <>
