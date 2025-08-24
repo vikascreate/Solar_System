@@ -3,7 +3,6 @@ import {  useFrame, useLoader } from '@react-three/fiber'
 import { GLTFLoader,} from 'three/examples/jsm/Addons.js'
 //import { OrbitControls } from 'three/examples/jsm/Addons.js'
 import { useRef } from 'react'
-import Label from './Label'
 function Sun() {
     const manager=useRef<THREE.Object3D>(null)
    const gltf=useLoader(GLTFLoader,'./Models/solarSystem.glb')
@@ -21,7 +20,6 @@ function Sun() {
   return (
     <>
     <primitive object={gltf.scene} ref={manager}/>
-    <Label/>
     </>
   )
 }
